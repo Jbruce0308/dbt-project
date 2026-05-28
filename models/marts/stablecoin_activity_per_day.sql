@@ -1,4 +1,4 @@
-
+--tc
 select
 t.date,
 t.token_address,
