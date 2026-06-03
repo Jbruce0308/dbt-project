@@ -40,6 +40,17 @@ models:
         - report
       +schema: marts
 
+      analytics:
+        stablecoin_activity_per_day:
+          +post-hook:
+            - grant usage on database dbt to role tester
+            - grant usage on schema dbt.dbt_temp_marts to role tester
+            - grant usage on database dbt to role ba
+            - grant usage on schema dbt.dbt_temp_marts to role ba 
+            - "{{ create_latest_version_view() }}"         
+          +grants:
+            select: ['ba']
+
 vars:
   token_name_var: 'tron'
   token_address_var: '0x50327c6c5a14dcade707abad2e27eb517df87ab5'
