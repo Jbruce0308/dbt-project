@@ -1,4 +1,6 @@
 --tc
+{{ config(tags=['stablecoin'], grants = {'+select': ['tester']})}}
+
 select
 t.date,
 t.token_address,
