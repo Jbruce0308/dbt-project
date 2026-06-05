@@ -1,3 +1,5 @@
+{{ config(group = 'fraud_risk')}}
+
 select
 t.from_address,
 c.bytecode,
