@@ -1,0 +1,9 @@
+groups:
+  - name: analytics_enginerring
+    owner:
+      name: engineering
+      email: analytics@company.com
+  - name: fraud_risk
+    owner:
+      name: fraud platform
+      email: fraud@company.com
