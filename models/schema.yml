@@ -1,6 +1,12 @@
 version: 2
 
 models:
+  - name: stg_transactions_enriched
+    columns:
+      - name: value
+        data_tests:
+          - assert_value_amount_positive:
+              field: block_number
   - name: stg_transactions
     description: > 
       this is gathering all the data from etherum blocktrain
@@ -46,3 +52,23 @@ models:
           # This means: use the 'columns' list from above, but exclude country_name
           - include: all
             exclude: [symbol,token_address]
+
+
+unit_tests:
+  - name: test_is_valid_transaction_category_breakdown
+    model: stg_transactions_enriched
+    overrides:
+      macros:
+        # unit test this model in "full refresh" mode
+        is_incremental: false 
+    given:
+      - input: ref('stg_transactions')
+        rows:
+          - {receipt_contract_address: 'test'}
+      - input: ref('stg_token_transfers')
+        format: dict
+        rows:
+          - {transaction_hash: 'test'}
+    expect:
+      rows:
+        - {transaction_category: 'contract_creation'}
